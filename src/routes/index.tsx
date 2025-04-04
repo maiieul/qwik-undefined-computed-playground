@@ -1,12 +1,19 @@
-import { component$ } from "@builder.io/qwik";
+import { component$, useSignal } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
+import { Computed } from "~/components/computed/computed";
 
 export default component$(() => {
+  const count = useSignal<number>(1);
+
   return (
     <>
       <h1>Hi 👋</h1>
       <div>
-        Can't wait to see what you build with qwik!
+        <Computed count={count.value} />
+        <br />
+        <button onClick$={() => count.value && count.value++}>Increment</button>
+        <button onClick$={() => (count.value = undefined)}>undefinify</button>
+        <button onClick$={() => (count.value = 1)}>redefine</button>
         <br />
         Happy coding.
       </div>
